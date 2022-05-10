@@ -52,8 +52,12 @@ async function fetch_sup3() {
     const sup3_path = 'sup3'
     await mkdir(sup3_path);
     const settings = platform_settings();
-    const tool = await tc.downloadTool(`https://github.com/lsr0/sup3/releases/download/${sup3_version}/sup3-${settings.name}-x64_64-${sup3_version}.${settings.suffix}`);
+    const tool_archive = `sup3-${settings.name}-x64_64-${sup3_version}.${settings.suffix}`;
+    core.info(`Fetching sup3 ${sup3_version} (${tool_archive})`);
+    const tool = await tc.downloadTool(`https://github.com/lsr0/sup3/releases/download/${sup3_version}/${tool_archive}`);
+    core.startGroup('Extract');
     const extracted = await settings.extract(tool, sup3_path);
+    core.endGroup();
     core.addPath(extracted);
 }
 
