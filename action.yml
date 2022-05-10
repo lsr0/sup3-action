@@ -1,0 +1,15 @@
+name: "Setup S3 via sup3"
+description: "Use sup3 to interact with S3 in cross-platform actions"
+branding:
+  icon: "upload-coud"
+  color: "green"
+inputs:
+  access_key:
+    description: "S3 access key"
+    required: true
+  secret_key:
+    description: "S3 secret key"
+    required: true
+runs:
+  using: "node16"
+  main: "index.js"
