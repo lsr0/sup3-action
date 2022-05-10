@@ -21,3 +21,6 @@ jobs:
       - name: Test Binary
         run: |
           sup3 --version
+      - name: Test Path
+        run: |
+          ${{ steps.selftest.outputs.path }}/sup3 --version

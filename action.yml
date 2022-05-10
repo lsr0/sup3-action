@@ -10,6 +10,9 @@ inputs:
   secret_key:
     description: "S3 secret key"
     required: true
+output:
+  path:
+    description: "Path to sup3 binary, for alternate shells/explicit use"
 runs:
   using: "node16"
   main: "index.js"

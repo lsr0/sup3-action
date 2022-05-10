@@ -59,6 +59,7 @@ async function fetch_sup3() {
     const extracted = await settings.extract(tool, sup3_path);
     core.endGroup();
     core.addPath(extracted);
+    core.setOutput('path', extracted);
 }
 
 

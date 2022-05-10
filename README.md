@@ -14,6 +14,12 @@ This is a cross-platform node action that downloads and adds the `sup3` static b
 
 **Required** The S3 secret key.
 
+## Outputs
+
+## `path`
+
+Path to the sup3 binary, in case you're using an alternate shell like MSYS2.
+
 ## Example usage
 
 ```yml
