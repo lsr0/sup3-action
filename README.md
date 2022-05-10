@@ -20,6 +20,10 @@ This is a cross-platform node action that downloads and adds the `sup3` static b
 
 Path to the sup3 binary, in case you're using an alternate shell like MSYS2.
 
+## `$SUP3_BIN`
+
+Environment variable containing the full path to the sup3 binary (may be without .exe)
+
 ## Example usage
 
 ```yml

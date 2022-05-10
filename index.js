@@ -60,6 +60,7 @@ async function fetch_sup3() {
     core.endGroup();
     core.addPath(extracted);
     core.setOutput('path', extracted);
+    core.exportVariable('SUP3_BIN', `${extracted}/sup3`);
 }
 
 

@@ -24,3 +24,6 @@ jobs:
       - name: Test Path
         run: |
           ${{ steps.selftest.outputs.path }}/sup3 --version
+      - name: Test Env
+        run: |
+          $SUP3_BIN --version
