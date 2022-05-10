@@ -4,7 +4,7 @@ import { platform, homedir } from 'os';
 
 import * as tc from '@actions/tool-cache';
 
-const sup3_version = "v0.4.0"
+const sup3_version = "v0.5.0"
 
 function key(key_name) {
     const raw = core.getInput(key_name);
