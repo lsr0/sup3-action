@@ -1,14 +1,14 @@
-const core = require('@actions/core');
+import core from '@actions/core';
 import { writeFile, mkdir } from 'fs/promises';
 import { platform, homedir } from 'os';
 
-const tc = require('@actions/tool-cache');
+import * as tc from '@actions/tool-cache';
 
 const sup3_version = "v0.4.0"
 
 function key(key_name) {
     const raw = core.getInput(key_name);
-    const sanitised = raw.split('\n', 1)[0].strip();
+    const sanitised = raw.split('\n', 1)[0].trim();
     return sanitised;
 }
 
@@ -19,6 +19,8 @@ aws_secret_access_key = ${key("secret_key")}
 `
 
 async function write_credentials(conf) {
+    if (process.env.NO_CONFIG)
+        return;
     const aws_config_path = `${homedir}/.aws`;
     await mkdir(aws_config_path);
     await writeFile(`${aws_config_path}/credentials`, conf);
@@ -47,7 +49,7 @@ function platform_settings() {
 }
 
 async function fetch_sup3() {
-    const sup3_path = '/sup3'
+    const sup3_path = 'sup3'
     await mkdir(sup3_path);
     const settings = platform_settings();
     const tool = await tc.downloadTool(`https://github.com/lsr0/sup3/releases/download/${sup3_version}/sup3-${settings.name}-x64_64-${sup3_version}.${settings.suffix}`);

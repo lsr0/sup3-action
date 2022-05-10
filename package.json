@@ -1,6 +1,7 @@
 {
   "name": "sup3-action",
   "version": "1.0.0",
+  "type": "module",
   "description": "",
   "main": "index.js",
   "scripts": {
