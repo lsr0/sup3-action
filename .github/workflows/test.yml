@@ -1,0 +1,19 @@
+name: Self Test
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    steps:
+      - name: Self Test Setup
+        id: selftest
+        uses: ./
+        with:
+          access_key: DUMMY_KEY
+          secret_key: DUMMY_SECRET
+      - name: Test Binary
+        run: |
+          sup3 --version
