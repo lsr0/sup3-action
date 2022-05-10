@@ -33,3 +33,6 @@ jobs:
         run: |
           & $Env:SUP3_BIN --version
 
+      - name: Print config
+        run: |
+          cat ~/.aws/credentials

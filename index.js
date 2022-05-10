@@ -6,16 +6,10 @@ import * as tc from '@actions/tool-cache';
 
 const sup3_version = "v0.5.0"
 
-function key(key_name) {
-    const raw = core.getInput(key_name);
-    const sanitised = raw.split('\n', 1)[0].trim();
-    return sanitised;
-}
 
-const aws_conf = `
-[default]
-aws_access_key_id = ${key("access_key")}
-aws_secret_access_key = ${key("secret_key")}
+const aws_conf = `[default]
+aws_access_key_id = ${core.getInput("access_key")}
+aws_secret_access_key = ${core.getInput("secret_key")}
 `
 
 async function write_credentials(conf) {
