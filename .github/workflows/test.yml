@@ -12,12 +12,20 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v2
+
+      - uses: msys2/setup-msys2@v2
+        if: runner.os == 'Windows'
+        with:
+          release: false
+          update: false
+
       - name: Self Test Setup
         id: selftest
         uses: ./
         with:
           access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
           secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
       - name: Test Binary
         run: |
           sup3 --version
@@ -41,15 +49,12 @@ jobs:
         run: |
           sup3 list-buckets --region=us-east-1 --endpoint=https://play.min.io:9000
 
-      - uses: msys2/setup-msys2@v2
-        if: runner.os == 'Windows'
-        with:
-          release: false
-          update: false
-
       - name: Test MSys2 Windows
         if: runner.os == 'Windows'
         shell: msys2 {0}
         run: |
+          env
+          ls -l ~/.aws/ || {}
+          ls -r C:\$MSYSTEM\
           $SUP3_BIN list-buckets --region=us-east-1 --endpoint=https://play.min.io:9000
 
