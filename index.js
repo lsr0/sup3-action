@@ -1,16 +1,23 @@
 import core from '@actions/core';
 import { writeFile, mkdir } from 'fs/promises';
 import { platform, homedir } from 'os';
+import * as child_process from 'child_process';
+import { promisify } from 'util';
 
 import * as tc from '@actions/tool-cache';
 
 const sup3_version = "v0.5.2"
+const sup3_path = 'sup3'
 
+const exec = promisify(child_process.exec);
 
 const aws_conf = `[default]
 aws_access_key_id = ${core.getInput("access_key")}
 aws_secret_access_key = ${core.getInput("secret_key")}
 `
+async function setup_for_msys2() {
+    await exec(`C:/msys64/usr/bin/bash.exe setup_for_msys2.sh ${sup3_path}`)
+}
 
 async function write_credentials(conf) {
     if (process.env.NO_CONFIG)
@@ -18,6 +25,8 @@ async function write_credentials(conf) {
     const aws_config_path = `${homedir}/.aws`;
     await mkdir(aws_config_path);
     await writeFile(`${aws_config_path}/credentials`, conf);
+    if (platform() == 'win32' && process.env.MSYSTEM)
+        await setup_for_msys2();
 }
 
 function platform_settings() {
@@ -43,7 +52,6 @@ function platform_settings() {
 }
 
 async function fetch_sup3() {
-    const sup3_path = 'sup3'
     await mkdir(sup3_path);
     const settings = platform_settings();
     const tool_archive = `sup3-${settings.name}-x64_64-${sup3_version}.${settings.suffix}`;
