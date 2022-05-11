@@ -53,9 +53,5 @@ jobs:
         if: runner.os == 'Windows'
         shell: msys2 {0}
         run: |
-          env
-          ls -l ~/.aws/ || true
-          ls -r C:/msys64 || true
-          export AWS_SHARED_CREDENTIALS_FILE=$USERPROFILE/.aws/credentials
-          $SUP3_BIN list-buckets --region=us-east-1 --endpoint=https://play.min.io:9000
+          sup3 list-buckets --region=us-east-1 --endpoint=https://play.min.io:9000
 
