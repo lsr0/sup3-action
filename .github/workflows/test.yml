@@ -54,7 +54,8 @@ jobs:
         shell: msys2 {0}
         run: |
           env
-          ls -l ~/.aws/ || {}
+          ls -l ~/.aws/ || true
           ls -r C:\$MSYSTEM\
+          export AWS_SHARED_CREDENTIALS_FILE=$USERPROFILE/.aws/credentials
           $SUP3_BIN list-buckets --region=us-east-1 --endpoint=https://play.min.io:9000
 
