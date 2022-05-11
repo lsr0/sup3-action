@@ -41,3 +41,15 @@ jobs:
         run: |
           sup3 list-buckets --region=us-east-1 --endpoint=https://play.min.io:9000
 
+      - uses: msys2/setup-msys2@v2
+        if: runner.os == 'Windows'
+        with:
+          release: false
+          update: false
+
+      - name: Test MSys2 Windows
+        if: runner.os == 'Windows'
+        shell: msys2 {0}
+        run: |
+          sup3 list-buckets --region=us-east-1 --endpoint=https://play.min.io:9000
+
