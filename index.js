@@ -16,7 +16,9 @@ aws_access_key_id = ${core.getInput("access_key")}
 aws_secret_access_key = ${core.getInput("secret_key")}
 `
 async function setup_for_msys2() {
-    await exec(`C:/msys64/usr/bin/bash.exe setup_for_msys2.sh ${sup3_path}`)
+    const {stdout, stderr} = await exec(`C:/msys64/usr/bin/bash.exe setup_for_msys2.sh ${sup3_path}`);
+    core.debug(`setup_for_msys2: output:\n${stdout}`);
+    core.debug(`stderr:\n${stderr}`);
 }
 
 async function write_credentials(conf) {
