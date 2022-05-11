@@ -9,7 +9,7 @@ import * as tc from '@actions/tool-cache';
 const sup3_version = "v0.5.2"
 const sup3_path = 'sup3'
 
-const exec = promisify(child_process.exec);
+const execFile = promisify(child_process.execFile);
 
 const aws_conf = `[default]
 aws_access_key_id = ${core.getInput("access_key")}
@@ -17,7 +17,7 @@ aws_secret_access_key = ${core.getInput("secret_key")}
 `
 async function setup_for_msys2() {
     core.info('Detected $MSYSTEM, installing MSYS2 support');
-    const {stdout, stderr} = await exec(`C:/msys64/usr/bin/bash.exe setup_for_msys2.sh ${sup3_path}`);
+    const {stdout, stderr} = await execFile('C:/msys64/usr/bin/bash.exe', ['setup_for_msys2.sh', 'sup3_path']);
     core.info(`setup_for_msys2: output:\n${stdout}`);
     core.info(`stderr:\n${stderr}`);
 }
