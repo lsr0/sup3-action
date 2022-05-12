@@ -1,15 +1,11 @@
 import core from '@actions/core';
-import { writeFile, mkdir } from 'fs/promises';
+import { writeFile, mkdir, readFile } from 'fs/promises';
 import { platform, homedir } from 'os';
-import * as child_process from 'child_process';
-import { promisify } from 'util';
 
 import * as tc from '@actions/tool-cache';
 
 const sup3_version = "v0.5.2"
 const sup3_path = 'sup3'
-
-const execFile = promisify(child_process.execFile);
 
 const aws_conf = `[default]
 aws_access_key_id = ${core.getInput("access_key")}
@@ -21,9 +17,23 @@ export AWS_SHARED_CREDENTIALS_FILE=$USERPROFILE/.aws/credentials
 '${process.cwd()}\\${sup3_path}\\sup3' "$@"
 `
 
+async function discover_msys2_path() {
+    try {
+        const wrapper_path = `${process.env.RUNNER_TEMP}\\setup-msys2\\msys2.cmd`;
+        const content = await readFile(wrapper_path);
+        const regex = /(?<path>[A-Za-z0-9\\_:-]*?)\\usr\\bin\\bash.exe/;
+        const path = content.match(regex).groups.path;
+        return path;
+    } catch (err) {
+        core.warning(`failed to discover msys2 path: ${err}`);
+        return 'C:\\msys64';
+    }
+}
+
 async function setup_for_msys2() {
     core.info('Detected $MSYSTEM, installing MSYS2 support');
-    await writeFile('C:/msys64/usr/bin/sup3', msys2_shim, {mode: 0o755});
+    const msys2_path = await discover_msys2_path();
+    await writeFile(`${msys2_path}\\usr\\bin\\sup3`, msys2_shim, {mode: 0o755});
 }
 
 async function write_credentials(conf) {
