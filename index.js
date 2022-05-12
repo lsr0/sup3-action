@@ -18,7 +18,7 @@ aws_secret_access_key = ${core.getInput("secret_key")}
 
 const msys2_shim = `#!/bin/bash
 export AWS_SHARED_CREDENTIALS_FILE=$USERPROFILE/.aws/credentials
-'${process.cwd()}\\${sup3_path}\\sup3' "$*"
+'${process.cwd()}\\${sup3_path}\\sup3' "$@"
 `
 
 async function setup_for_msys2() {
