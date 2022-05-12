@@ -32,14 +32,6 @@ jobs:
       - name: Test Path
         run: |
           ${{ steps.selftest.outputs.path }}/sup3 --version
-      - name: Test Env
-        if: runner.os != 'Windows'
-        run: |
-          $SUP3_BIN --version
-      - name: Test Env Windows
-        if: runner.os == 'Windows'
-        run: |
-          & $Env:SUP3_BIN --version
 
       - name: Print config
         run: |

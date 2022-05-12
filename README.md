@@ -24,10 +24,6 @@ This also has explicit support for MSYS2, necessary because generally adding PAT
 
 Path to the sup3 binary.
 
-## `$SUP3_BIN`
-
-Environment variable containing the full path to the sup3 binary (may be without .exe)
-
 ## Example usage
 
 ```yml
