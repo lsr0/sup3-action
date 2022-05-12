@@ -15,11 +15,18 @@ const aws_conf = `[default]
 aws_access_key_id = ${core.getInput("access_key")}
 aws_secret_access_key = ${core.getInput("secret_key")}
 `
+
+const msys2_shim = `#!/bin/bash
+export AWS_SHARED_CREDENTIALS_FILE=$USERPROFILE/.aws/credentials
+${process.cwd()}/${sup3_path}/sup3 "$*"
+`
+
 async function setup_for_msys2() {
     core.info('Detected $MSYSTEM, installing MSYS2 support');
-    const {stdout, stderr} = await execFile('C:/msys64/usr/bin/bash.exe', ['setup_for_msys2.sh', 'sup3_path']);
-    core.info(`setup_for_msys2: output:\n${stdout}`);
-    core.info(`stderr:\n${stderr}`);
+    //const {stdout, stderr} = await execFile('C:/msys64/usr/bin/bash.exe', ['setup_for_msys2.sh', 'sup3_path']);
+    //core.info(`setup_for_msys2: output:\n${stdout}`);
+    //core.info(`stderr:\n${stderr}`);
+    await writeFile('C:/msys64/usr/bin/sup3', msys2_shim, {mode: 0o755});
 }
 
 async function write_credentials(conf) {
