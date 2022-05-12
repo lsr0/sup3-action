@@ -20,7 +20,7 @@ export AWS_SHARED_CREDENTIALS_FILE=$USERPROFILE/.aws/credentials
 async function discover_msys2_path() {
     try {
         const wrapper_path = `${process.env.RUNNER_TEMP}\\setup-msys2\\msys2.cmd`;
-        const content = await readFile(wrapper_path);
+        const content = await readFile(wrapper_path, {encoding: 'utf8'});
         const regex = /(?<path>[A-Za-z0-9\\_:-]*?)\\usr\\bin\\bash.exe/;
         const path = content.match(regex).groups.path;
         return path;
