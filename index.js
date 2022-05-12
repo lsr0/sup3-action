@@ -23,9 +23,6 @@ export AWS_SHARED_CREDENTIALS_FILE=$USERPROFILE/.aws/credentials
 
 async function setup_for_msys2() {
     core.info('Detected $MSYSTEM, installing MSYS2 support');
-    //const {stdout, stderr} = await execFile('C:/msys64/usr/bin/bash.exe', ['setup_for_msys2.sh', 'sup3_path']);
-    //core.info(`setup_for_msys2: output:\n${stdout}`);
-    //core.info(`stderr:\n${stderr}`);
     await writeFile('C:/msys64/usr/bin/sup3', msys2_shim, {mode: 0o755});
 }
 
