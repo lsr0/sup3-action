@@ -27,7 +27,7 @@ Path to the sup3 binary.
 ## Example usage
 
 ```yml
-- uses: actions/sup3-action@v0.1
+- uses: actions/sup3-action@v0.5
   with:
     access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
     secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
