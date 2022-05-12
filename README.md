@@ -14,11 +14,15 @@ This is a cross-platform node action that downloads and adds the `sup3` static b
 
 **Required** The S3 secret key.
 
+## Notes
+
+This also has explicit support for MSYS2, necessary because generally adding PATH entries doesn't propagate to MSYS2, and the HOME directory changes. This activates automatically if MSYSTEM is set, ie. if the `msys2/setup-msys2@v2` action occured before this action is run.
+
 ## Outputs
 
 ## `path`
 
-Path to the sup3 binary, in case you're using an alternate shell like MSYS2.
+Path to the sup3 binary.
 
 ## `$SUP3_BIN`
 
