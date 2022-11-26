@@ -4,7 +4,7 @@ import { platform, homedir } from 'os';
 
 import * as tc from '@actions/tool-cache';
 
-const sup3_version = "v0.8.6"
+const sup3_version = "v0.8.10"
 const sup3_path = 'sup3'
 
 const aws_conf = `[default]
