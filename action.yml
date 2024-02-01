@@ -14,5 +14,5 @@ output:
   path:
     description: "Path to sup3 binary, for alternate shells/explicit use"
 runs:
-  using: "node16"
+  using: "node20"
   main: "index.js"
