@@ -19,13 +19,6 @@ jobs:
           release: true
           update: false
 
-      - name: Self Test Setup
-        id: selftest
-        uses: ./
-        with:
-          access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-
       - name: Test Binary
         run: |
           sup3 --version
@@ -33,17 +26,19 @@ jobs:
         run: |
           ${{ steps.selftest.outputs.path }}/sup3 --version
 
-      - name: Print config
-        run: |
-          cat ~/.aws/credentials
-
       - name: List Buckets
         run: |
           sup3 list-buckets --region=us-east-1 --endpoint=https://play.min.io:9000
+        with:
+          access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
       - name: Test MSys2 Windows
         if: runner.os == 'Windows'
         shell: msys2 {0}
         run: |
           sup3 list-buckets --region=us-east-1 --endpoint=https://play.min.io:9000
+        with:
+          access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
